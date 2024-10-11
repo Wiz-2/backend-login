@@ -20,6 +20,10 @@ users_db = {
     "john": generate_password_hash("doe123")            # Another predefined user
 }
 
+@app.route("/", methods=["GET"])
+def home():
+    return "Welcome to my backend!", 200
+
 @app.route('/api/login', methods=['POST'])
 def login():
     """
