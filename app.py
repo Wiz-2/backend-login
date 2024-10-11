@@ -7,11 +7,19 @@ import os
 # Initialize the Flask application
 app = Flask(__name__)
 
+app = Flask(__name__)
+
+# Fetch ALLOWED_ORIGINS from environment variables, default to localhost for development
 ALLOWED_ORIGINS = os.environ.get('ALLOWED_ORIGINS', 'http://localhost:3000').split(',')
 
-# Configure Cross-Origin Resource Sharing (CORS) to allow requests from the specified origin
-# Adjust the 'origins' parameter as needed to match your frontend's domain
-CORS(app, resources={r"/api/*": {"origins": ALLOWED_ORIGINS}})
+# Configure CORS to allow specified origins
+CORS(app, resources={
+    r"/api/*": {
+        "origins": ALLOWED_ORIGINS,
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # In-memory user database for demonstration purposes
 # In a production environment, replace this with a persistent database
